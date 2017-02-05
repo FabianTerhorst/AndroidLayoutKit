@@ -41,6 +41,8 @@ public class BaseLayout {
         return config != null;
     }
 
+    //Todo: makeView() should not be a setter it should create the layout object
+    //Todo: maybe measure (layout) the view in makeView
     public BaseView makeView() {
         return baseView;
     }
