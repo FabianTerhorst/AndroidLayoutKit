@@ -2,15 +2,14 @@ package io.fabianterhorst.layoutkit.sample;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.BaseView;
-import io.fabianterhorst.layoutkit.Flexibility;
-import io.fabianterhorst.layoutkit.Rect;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 
 /**
@@ -21,9 +20,9 @@ public class CustomView extends View {
 
     private TextView textView = new TextView(getContext());
 
-    private BaseView baseView = new BaseView(textView, new Rect(500, 500, 20, 50));
+    private BaseView baseView = new BaseView(textView);
 
-    private SizeLayout sizeLayout = new SizeLayout(baseView, 200f, 400f, 200f, 400f, Alignment.center, Flexibility.flexible, null, null);
+    private SizeLayout sizeLayout = new SizeLayout(baseView, 100f, null, 100f, null, null, null, null, null);
 
     public CustomView(Context context) {
         super(context);
@@ -42,13 +41,19 @@ public class CustomView extends View {
 
     private void init() {
         textView.setText("bla");
+        textView.setBackgroundColor(Color.GRAY);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        sizeLayout.arrangement(null, null, null).makeViews(null).draw(canvas);
-        //baseView.draw(canvas);
+        BaseView view = sizeLayout.arrangement(null, 200f, 200f).makeViews(null);//.draw(canvas);
+        view.setView(textView);
+        Log.d("size", String.valueOf(view.getFrame().getHeight()));
+        Log.d("size", String.valueOf(view.getFrame().getWidth()));
+        Log.d("size", String.valueOf(view.getFrame().getOrigin().getX()));
+        Log.d("size", String.valueOf(view.getFrame().getOrigin().getY()));
+        view.draw(canvas);
     }
 
     @Override
