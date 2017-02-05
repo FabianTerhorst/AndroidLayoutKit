@@ -28,10 +28,7 @@ public class BaseView {
 
     public BaseView(View view, Rect frame) {
         this.view = view;
-        this.frame = frame;
-        if (view != null && frame != null) {
-            view.layout(0, 0, (int) frame.getWidth(), (int) frame.getHeight());
-        }
+        setFrame(frame);
     }
 
     public void draw(Canvas canvas) {
@@ -49,6 +46,9 @@ public class BaseView {
 
     public void setFrame(Rect frame) {
         this.frame = frame;
+        if (view != null && frame != null) {
+            view.layout(0, 0, (int) frame.getWidth(), (int) frame.getHeight());
+        }
     }
 
     public Rect getFrame() {

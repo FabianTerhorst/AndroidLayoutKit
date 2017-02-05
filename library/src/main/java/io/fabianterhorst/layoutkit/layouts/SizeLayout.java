@@ -9,7 +9,6 @@ import io.fabianterhorst.layoutkit.Flexibility;
 import io.fabianterhorst.layoutkit.Layout;
 import io.fabianterhorst.layoutkit.LayoutArrangement;
 import io.fabianterhorst.layoutkit.LayoutMeasurement;
-import io.fabianterhorst.layoutkit.Point;
 import io.fabianterhorst.layoutkit.Rect;
 import io.fabianterhorst.layoutkit.Size;
 
@@ -17,9 +16,9 @@ import io.fabianterhorst.layoutkit.Size;
  * Created by fabianterhorst on 03.02.17.
  */
 
-public class SizeLayout extends BaseLayout implements Layout {
+public class SizeLayout extends BaseLayout {
 
-    private static float floatTolerance = 0.0001f;
+    private static float floatTolerance = 0.0001f; //Todo: maybe local?
 
     private Float minWidth;
     private Float maxWidth;
@@ -105,21 +104,5 @@ public class SizeLayout extends BaseLayout implements Layout {
     @Override
     public void configure(BaseView baseTypeView) {
 
-    }
-
-    public final LayoutArrangement arrangement(Point origin, Float width, Float height) {
-        if (origin == null) {
-            origin = new Point(0, 0);
-        }
-        Size maxSize = new Size(width == null ? Float.MAX_VALUE : width, height == null ? Float.MAX_VALUE : height);
-        LayoutMeasurement measurement = measurement(maxSize);
-        Rect rect = new Rect(origin, measurement.getSize());
-        if (width != null) {
-            rect.setSizeWidth(width);
-        }
-        if (height != null) {
-            rect.setSizeHeight(height);
-        }
-        return arrangement(rect, measurement);
     }
 }

@@ -37,7 +37,7 @@ public class LayoutArrangement {
             rootView = views.get(0);
         } else {
             // We have multiple views so create a root view.
-            rootView = new BaseView(layout.makeView().getView(), frame);//Todo: fix with a better solution
+            rootView = new BaseView(frame);
             for (BaseView subView : views) {
                 subView.getFrame().offsetBy(-frame.getOrigin().getX(), -frame.getOrigin().getY());
                 rootView.addSubView(subView);
@@ -48,8 +48,8 @@ public class LayoutArrangement {
 
     private List<BaseView> makeSubViews() {
         List<BaseView> subViews = new ArrayList<>();
-        for (LayoutArrangement arrangement : this.subLayouts) {
-            subViews.addAll(arrangement.makeSubViews());
+        for (LayoutArrangement subLayout : this.subLayouts) {
+            subViews.addAll(subLayout.makeSubViews());
         }
         if (layout.needsView()) {
             BaseView view = layout.makeView();

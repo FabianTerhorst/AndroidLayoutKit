@@ -3,12 +3,13 @@ package io.fabianterhorst.layoutkit.layouts;
 import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.Flexibility;
+import io.fabianterhorst.layoutkit.Layout;
 
 /**
  * Created by fabianterhorst on 03.02.17.
  */
 
-public class BaseLayout {
+public abstract class BaseLayout extends Layout {
 
     public interface LayoutConfig {
         void onConfigure(BaseLayout layout);
@@ -38,7 +39,7 @@ public class BaseLayout {
     }
 
     public boolean needsView() {
-        return config != null;
+        return baseView != null;
     }
 
     //Todo: makeView() should not be a setter it should create the layout object

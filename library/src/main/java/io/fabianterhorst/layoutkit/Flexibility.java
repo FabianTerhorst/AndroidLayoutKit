@@ -40,15 +40,23 @@ public class Flexibility {
         }
     }
 
-    public Integer max(Integer left, Integer right) {
+    public static Integer max(Integer left, Integer right) {
         if (left == null) return right;
         if (right == null) return left;
         return Math.max(left, right);
     }
 
-    public Integer min(Integer left, Integer right) {
+    public static Integer min(Integer left, Integer right) {
         // One of them is inflexible so return null flex (inflexible)
         if (left == null || right == null) return null;
         return Math.min(left, right);
+    }
+
+    public Integer getVertical() {
+        return vertical;
+    }
+
+    public Integer getHorizontal() {
+        return horizontal;
     }
 }

@@ -4,19 +4,35 @@ package io.fabianterhorst.layoutkit;
  * Created by fabianterhorst on 03.02.17.
  */
 
-public interface Layout {
+public abstract class Layout {
 
-    LayoutMeasurement measurement(Size maxSize);
+    public abstract LayoutMeasurement measurement(Size maxSize);
 
-    LayoutArrangement arrangement(Rect rect, LayoutMeasurement measurement);
+    public abstract LayoutArrangement arrangement(Rect rect, LayoutMeasurement measurement);
 
-    boolean needsView();
+    public abstract boolean needsView();
 
-    BaseView makeView();
+    public abstract BaseView makeView();
 
-    void configure(BaseView baseTypeView);
+    public abstract void configure(BaseView baseTypeView);
 
-    Flexibility getFlexibility();
+    public abstract Flexibility getFlexibility();//Todo: remove unused
+
+    public final LayoutArrangement arrangement(Point origin, Float width, Float height) { //Todo: remove the final
+        if (origin == null) {
+            origin = new Point(0, 0);
+        }
+        Size maxSize = new Size(width == null ? Float.MAX_VALUE : width, height == null ? Float.MAX_VALUE : height);
+        LayoutMeasurement measurement = measurement(maxSize);
+        Rect rect = new Rect(origin, measurement.getSize());
+        if (width != null) {
+            rect.setSizeWidth(width);
+        }
+        if (height != null) {
+            rect.setSizeHeight(height);
+        }
+        return arrangement(rect, measurement);
+    }
 
     //String viewReuseId();
 }
