@@ -4,12 +4,7 @@ package io.fabianterhorst.layoutkit;
  * Created by fabianterhorst on 03.02.17.
  */
 
-//Todo: size or width and heigth?
 public class Rect {
-
-    private float width;
-
-    private float height;
 
     private Point origin;
 
@@ -22,16 +17,15 @@ public class Rect {
 
     public Rect(float x, float y, float width, float height) {
         this.origin = new Point(x, y);
-        this.width = width;
-        this.height = height;
+        this.size = new Size(width, height);
     }
 
     public float getWidth() {
-        return width;
+        return size.getWidth();
     }
 
     public float getHeight() {
-        return height;
+        return size.getHeight();
     }
 
     public Point getOrigin() {
@@ -45,5 +39,13 @@ public class Rect {
 
     public Size getSize() {
         return size;
+    }
+
+    public void setSizeWidth(float width) {
+        size.setWidth(width);
+    }
+
+    public void setSizeHeight(float height) {
+        size.setHeight(height);
     }
 }
