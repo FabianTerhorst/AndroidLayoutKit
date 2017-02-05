@@ -71,17 +71,23 @@ public class SizeLayout extends BaseLayout implements Layout {
         Size availableSize = maxSize.decreasedToSize(new Size(maxWidth == null ? Float.MAX_VALUE : maxWidth, maxHeight == null ? Float.MAX_VALUE : maxHeight));
 
         // Measure the sublayout if it exists.
-        LayoutMeasurement sublayoutMeasurement = subLayout.measurement(availableSize);
-        Size subLayoutSize = sublayoutMeasurement.getSize();
-        if (subLayoutSize == null) {
+        LayoutMeasurement sublayoutMeasurement;
+        Size subLayoutSize;
+        if (subLayout != null) {
+            sublayoutMeasurement = subLayout.measurement(availableSize);
+            subLayoutSize = sublayoutMeasurement.getSize();
+        } else {
             subLayoutSize = new Size(0, 0);
+            sublayoutMeasurement = null;
         }
 
         // Make sure that our size is in the desired range.
         Size size = subLayoutSize.increasedToSize(new Size(minWidth == null ? 0 : minWidth, minHeight == null ? 0 : minHeight)).decreasedToSize(availableSize);
 
         List<LayoutMeasurement> subLayouts = new ArrayList<>();
-        subLayouts.add(sublayoutMeasurement);
+        if (sublayoutMeasurement != null) {
+            subLayouts.add(sublayoutMeasurement);
+        }
         return new LayoutMeasurement(this, size, maxSize, subLayouts);
     }
 
@@ -109,10 +115,10 @@ public class SizeLayout extends BaseLayout implements Layout {
         LayoutMeasurement measurement = measurement(maxSize);
         Rect rect = new Rect(origin, measurement.getSize());
         if (width != null) {
-            rect.getSize().setWidth(width);
+            rect.setSizeWidth(width);
         }
         if (height != null) {
-            rect.getSize().setHeight(height);
+            rect.setSizeHeight(height);
         }
         return arrangement(rect, measurement);
     }
