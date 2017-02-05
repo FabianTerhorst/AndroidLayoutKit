@@ -60,11 +60,14 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        stackLayout.arrangement(null, 200f, 200f).makeViews(null).draw(canvas);
+        stackLayout.arrangement(null, (float) getWidth(), (float) getHeight()).makeViews(null).draw(canvas);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(MeasureSpec.makeMeasureSpec(500, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(500, MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        this.setMeasuredDimension(parentWidth, parentHeight);
     }
 }
