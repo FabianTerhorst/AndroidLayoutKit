@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,13 +46,7 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        BaseView view = sizeLayout.arrangement(null, 200f, 200f).makeViews(null);//.draw(canvas);
-        view.setView(textView);
-        Log.d("size", String.valueOf(view.getFrame().getHeight()));
-        Log.d("size", String.valueOf(view.getFrame().getWidth()));
-        Log.d("size", String.valueOf(view.getFrame().getOrigin().getX()));
-        Log.d("size", String.valueOf(view.getFrame().getOrigin().getY()));
-        view.draw(canvas);
+        sizeLayout.arrangement(null, 200f, 200f).makeViews(null).draw(canvas);
     }
 
     @Override
