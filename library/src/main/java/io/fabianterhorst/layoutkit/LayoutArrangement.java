@@ -1,6 +1,7 @@
 package io.fabianterhorst.layoutkit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,10 @@ public class LayoutArrangement {
         this.layout = layout;
         this.frame = frame;
         this.subLayouts = subLayouts;
+    }
+
+    public BaseView makeViews() {
+        return makeViews(null);
     }
 
     public BaseView makeViews(BaseView view) {
@@ -54,13 +59,11 @@ public class LayoutArrangement {
         if (layout.needsView()) {
             BaseView view = layout.makeView();
             view.setFrame(frame);
-            layout.configure(view);//Todo: maybe view.getView() ?
+            layout.configure(view);
             for (BaseView subView : subViews) {
                 view.addSubView(subView);
             }
-            List<BaseView> viewArray = new ArrayList<>();//Todo: reuse top array list
-            viewArray.add(view);
-            return viewArray;
+            return Collections.singletonList(view);
         } else {
             for (BaseView subView : subViews) {
                 subView.getFrame().offsetBy(frame.getOrigin().getX(), frame.getOrigin().getY());
