@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +14,8 @@ import java.util.Arrays;
 import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.Axis;
 import io.fabianterhorst.layoutkit.BaseView;
-import io.fabianterhorst.layoutkit.Flexibility;
+import io.fabianterhorst.layoutkit.EdgeInsets;
+import io.fabianterhorst.layoutkit.layouts.InsetLayout;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 import io.fabianterhorst.layoutkit.layouts.StackLayout;
 
@@ -39,17 +41,17 @@ public class CustomView extends View {
 
     private BaseView baseView4 = new BaseView(textView4);
 
-    private SizeLayout sizeLayout = new SizeLayout(baseView, 1f, null, 100f, 100f, Alignment.fill, Flexibility.min, null, null);
+    private InsetLayout sizeLayout = new InsetLayout(new EdgeInsets(10, 10, 10, 10), null, new SizeLayout(baseView, 100f, 100f, 100f, 100f, Alignment.center, null, null, null), null);
 
-    private SizeLayout sizeLayout2 = new SizeLayout(baseView2, 1f, null, 100f, 100f, Alignment.fill, Flexibility.min, null, null);
+    private SizeLayout sizeLayout2 = new SizeLayout(baseView2, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
 
-    private SizeLayout sizeLayout3 = new SizeLayout(baseView3, 1f, null, 100f, 100f, null, null, null, null);
+    private SizeLayout sizeLayout3 = new SizeLayout(baseView3, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
 
-    private SizeLayout sizeLayout4 = new SizeLayout(baseView4, 1f, null, 100f, 100f, null, null, null, null);
+    private SizeLayout sizeLayout4 = new SizeLayout(baseView4, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
 
     private StackLayout stackLayout2 = new StackLayout(Axis.VERTICAL, 0, null, null, null, Arrays.asList(sizeLayout3, sizeLayout4), null);
 
-    private StackLayout stackLayout = new StackLayout(Axis.HORIZONTAL, 0, StackLayout.StackLayoutDistribution.FILL_EQUAL_SIZE, null, null, Arrays.asList(sizeLayout, sizeLayout2, stackLayout2), null);
+    private StackLayout stackLayout = new StackLayout(Axis.HORIZONTAL, 0, null, null, null, Arrays.asList(sizeLayout, sizeLayout2, stackLayout2), null);
 
     public CustomView(Context context) {
         super(context);
@@ -80,7 +82,9 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        stackLayout.arrangement(null, (float) getWidth(), (float) getHeight()).makeViews(null).draw(canvas);
+        long time = System.nanoTime();
+        stackLayout.arrangement(null, (float) getWidth(), null).makeViews().draw(canvas);
+        Log.d("time", String.valueOf(System.nanoTime() - time));
     }
 
     @Override
