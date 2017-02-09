@@ -15,6 +15,7 @@ import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.Axis;
 import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.EdgeInsets;
+import io.fabianterhorst.layoutkit.layouts.BaseLayout;
 import io.fabianterhorst.layoutkit.layouts.InsetLayout;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 import io.fabianterhorst.layoutkit.layouts.StackLayout;
@@ -25,29 +26,57 @@ import io.fabianterhorst.layoutkit.layouts.StackLayout;
 
 public class CustomView extends View {
 
-    private TextView textView = new TextView(getContext());
+    private BaseView baseView = new BaseView(new TextView(getContext()));
 
-    private TextView textView2 = new TextView(getContext());
+    private BaseView baseView2 = new BaseView(new TextView(getContext()));
 
-    private TextView textView3 = new TextView(getContext());
+    private BaseView baseView3 = new BaseView(new TextView(getContext()));
 
-    private TextView textView4 = new TextView(getContext());
+    private BaseView baseView4 = new BaseView(new TextView(getContext()));
 
-    private BaseView baseView = new BaseView(textView);
+    private InsetLayout sizeLayout = new InsetLayout(new EdgeInsets(10, 10, 10, 10), null, new SizeLayout(baseView, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
+        @Override
+        public void onConfigure(View view) {
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setText("bla");
+                textView.setBackgroundColor(Color.GRAY);
+            }
+        }
+    }), null);
 
-    private BaseView baseView2 = new BaseView(textView2);
+    private SizeLayout sizeLayout2 = new SizeLayout(baseView2, 100f, 100f, 100f, 100f, null, null, null, new BaseLayout.LayoutConfig() {
+        @Override
+        public void onConfigure(View view) {
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setText("bla2");
+                textView.setBackgroundColor(Color.BLUE);
+            }
+        }
+    });
 
-    private BaseView baseView3 = new BaseView(textView3);
+    private SizeLayout sizeLayout3 = new SizeLayout(baseView3, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
+        @Override
+        public void onConfigure(View view) {
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setText("bla3");
+                textView.setBackgroundColor(Color.DKGRAY);
+            }
+        }
+    });
 
-    private BaseView baseView4 = new BaseView(textView4);
-
-    private InsetLayout sizeLayout = new InsetLayout(new EdgeInsets(10, 10, 10, 10), null, new SizeLayout(baseView, 100f, 100f, 100f, 100f, Alignment.center, null, null, null), null);
-
-    private SizeLayout sizeLayout2 = new SizeLayout(baseView2, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
-
-    private SizeLayout sizeLayout3 = new SizeLayout(baseView3, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
-
-    private SizeLayout sizeLayout4 = new SizeLayout(baseView4, 100f, 100f, 100f, 100f, Alignment.center, null, null, null);
+    private SizeLayout sizeLayout4 = new SizeLayout(baseView4, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
+        @Override
+        public void onConfigure(View view) {
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setText("bla4");
+                textView.setBackgroundColor(Color.CYAN);
+            }
+        }
+    });
 
     private StackLayout stackLayout2 = new StackLayout(Axis.VERTICAL, 0, null, null, null, Arrays.asList(sizeLayout3, sizeLayout4), null);
 
@@ -69,14 +98,6 @@ public class CustomView extends View {
     }
 
     private void init() {
-        textView4.setText("bla6");
-        textView4.setBackgroundColor(Color.CYAN);
-        textView3.setText("bla4");
-        textView3.setBackgroundColor(Color.DKGRAY);
-        textView.setText("bla");
-        textView.setBackgroundColor(Color.GRAY);
-        textView2.setText("bla2");
-        textView2.setBackgroundColor(Color.BLUE);
     }
 
     @Override
