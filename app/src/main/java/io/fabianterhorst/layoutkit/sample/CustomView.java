@@ -31,7 +31,7 @@ public class CustomView extends View {
                     null, null, null,
                     new BaseLayout.LayoutConfig() {
                         @Override
-                        public void onConfigure(View view) {
+                        public void onConfigure(Object view) {
                             if (view instanceof TextView) {
                                 TextView textView = (TextView) view;
                                 textView.setText("bla");
@@ -40,13 +40,27 @@ public class CustomView extends View {
                         }
                     }), null);
 
+    private SizeLayout sizeLayoutCustom = new SizeLayout(
+            new CustomBaseView(),
+            100f, 100f, 100f, 100f,
+            null, null, null,
+            new BaseLayout.LayoutConfig() {
+                @Override
+                public void onConfigure(Object view) {
+                    if (view instanceof CustomBaseView) {
+                        CustomBaseView customBaseView = (CustomBaseView) view;
+                        customBaseView.setColor(Color.LTGRAY);
+                    }
+                }
+            });
+
     private SizeLayout sizeLayout2 = new SizeLayout(
             new BaseView(new TextView(getContext())),
             100f, 100f, 100f, 100f,
             null, null, null,
             new BaseLayout.LayoutConfig() {
                 @Override
-                public void onConfigure(View view) {
+                public void onConfigure(Object view) {
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
                         textView.setText("bla2");
@@ -61,7 +75,7 @@ public class CustomView extends View {
             null, null, null,
             new BaseLayout.LayoutConfig() {
                 @Override
-                public void onConfigure(View view) {
+                public void onConfigure(Object view) {
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
                         textView.setText("bla3");
@@ -76,7 +90,7 @@ public class CustomView extends View {
             null, null, null,
             new BaseLayout.LayoutConfig() {
                 @Override
-                public void onConfigure(View view) {
+                public void onConfigure(Object view) {
                     if (view instanceof TextView) {
                         TextView textView = (TextView) view;
                         textView.setText("bla4");
@@ -94,7 +108,7 @@ public class CustomView extends View {
     private StackLayout stackLayout = new StackLayout(
             Axis.HORIZONTAL, 0,
             null, null, null,
-            Arrays.asList(insetLayout, sizeLayout2, stackLayout2),
+            Arrays.asList(insetLayout, sizeLayoutCustom, sizeLayout2, stackLayout2),
             null);
 
     public CustomView(Context context) {
