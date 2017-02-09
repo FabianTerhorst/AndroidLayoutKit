@@ -19,6 +19,10 @@ public class BaseView {
 
     private List<BaseView> subViews;
 
+    public BaseView() {
+        this(null, null);
+    }
+
     public BaseView(Rect rect) {
         this(null, rect);
     }
@@ -39,7 +43,7 @@ public class BaseView {
         if (view != null) {
             startDraw(canvas);
             view.draw(canvas);
-            endDraw(canvas);
+            stopDraw(canvas);
         } else {
             onDraw(canvas);
         }
@@ -49,16 +53,16 @@ public class BaseView {
         }
     }
 
-    void startDraw(Canvas canvas) {
+    protected void startDraw(Canvas canvas) {
         canvas.save();
         canvas.translate(frame.getOrigin().getX(), frame.getOrigin().getY());
     }
 
-    void endDraw(Canvas canvas) {
+    protected void stopDraw(Canvas canvas) {
         canvas.restore();
     }
 
-    private void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
 
     }
 
@@ -70,7 +74,7 @@ public class BaseView {
         }
     }
 
-    private void onMeasure(float width, float height) {
+    protected void onMeasure(float width, float height) {
 
     }
 

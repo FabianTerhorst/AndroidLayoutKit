@@ -1,7 +1,5 @@
 package io.fabianterhorst.layoutkit.layouts;
 
-import android.view.View;
-
 import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.Flexibility;
@@ -14,7 +12,7 @@ import io.fabianterhorst.layoutkit.Layout;
 public abstract class BaseLayout extends Layout {
 
     public interface LayoutConfig {
-        void onConfigure(View view);
+        void onConfigure(Object view);
     }
 
     private BaseView baseView;
@@ -52,8 +50,8 @@ public abstract class BaseLayout extends Layout {
 
     @Override
     public void configure(BaseView baseTypeView) {
-        if (config != null && baseView != null && baseView.getView() != null) {
-            config.onConfigure(baseView.getView());
+        if (config != null && baseView != null) {
+            config.onConfigure(baseView.getView() != null ? baseView.getView() : baseView);
         }
     }
 }
