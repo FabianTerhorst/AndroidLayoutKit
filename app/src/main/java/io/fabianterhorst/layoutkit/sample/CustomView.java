@@ -3,15 +3,12 @@ package io.fabianterhorst.layoutkit.sample;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
-import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.Axis;
 import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.EdgeInsets;
@@ -26,78 +23,82 @@ import io.fabianterhorst.layoutkit.layouts.StackLayout;
 
 public class CustomView extends View {
 
-    private BaseView baseView = new BaseView(new TextView(getContext()));
+    private InsetLayout sizeLayout = new InsetLayout(
+            new EdgeInsets(10, 10, 10, 10), null,
+            new SizeLayout(
+                    new BaseView(new TextView(getContext())),
+                    100f, 100f, 100f, 100f,
+                    null, null, null,
+                    new BaseLayout.LayoutConfig() {
+                        @Override
+                        public void onConfigure(View view) {
+                            if (view instanceof TextView) {
+                                TextView textView = (TextView) view;
+                                textView.setText("bla");
+                                textView.setBackgroundColor(Color.GRAY);
+                            }
+                        }
+                    }), null);
 
-    private BaseView baseView2 = new BaseView(new TextView(getContext()));
+    private SizeLayout sizeLayout2 = new SizeLayout(
+            new BaseView(new TextView(getContext())),
+            100f, 100f, 100f, 100f,
+            null, null, null,
+            new BaseLayout.LayoutConfig() {
+                @Override
+                public void onConfigure(View view) {
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        textView.setText("bla2");
+                        textView.setBackgroundColor(Color.BLUE);
+                    }
+                }
+            });
 
-    private BaseView baseView3 = new BaseView(new TextView(getContext()));
+    private SizeLayout sizeLayout3 = new SizeLayout(
+            new BaseView(new TextView(getContext())),
+            100f, 100f, 100f, 100f,
+            null, null, null,
+            new BaseLayout.LayoutConfig() {
+                @Override
+                public void onConfigure(View view) {
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        textView.setText("bla3");
+                        textView.setBackgroundColor(Color.DKGRAY);
+                    }
+                }
+            });
 
-    private BaseView baseView4 = new BaseView(new TextView(getContext()));
+    private SizeLayout sizeLayout4 = new SizeLayout(
+            new BaseView(new TextView(getContext())),
+            100f, 100f, 100f, 100f,
+            null, null, null,
+            new BaseLayout.LayoutConfig() {
+                @Override
+                public void onConfigure(View view) {
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        textView.setText("bla4");
+                        textView.setBackgroundColor(Color.CYAN);
+                    }
+                }
+            });
 
-    private InsetLayout sizeLayout = new InsetLayout(new EdgeInsets(10, 10, 10, 10), null, new SizeLayout(baseView, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
-        @Override
-        public void onConfigure(View view) {
-            if (view instanceof TextView) {
-                TextView textView = (TextView) view;
-                textView.setText("bla");
-                textView.setBackgroundColor(Color.GRAY);
-            }
-        }
-    }), null);
+    private StackLayout stackLayout2 = new StackLayout(
+            Axis.VERTICAL, 0,
+            null, null, null,
+            Arrays.asList(sizeLayout3, sizeLayout4),
+            null);
 
-    private SizeLayout sizeLayout2 = new SizeLayout(baseView2, 100f, 100f, 100f, 100f, null, null, null, new BaseLayout.LayoutConfig() {
-        @Override
-        public void onConfigure(View view) {
-            if (view instanceof TextView) {
-                TextView textView = (TextView) view;
-                textView.setText("bla2");
-                textView.setBackgroundColor(Color.BLUE);
-            }
-        }
-    });
-
-    private SizeLayout sizeLayout3 = new SizeLayout(baseView3, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
-        @Override
-        public void onConfigure(View view) {
-            if (view instanceof TextView) {
-                TextView textView = (TextView) view;
-                textView.setText("bla3");
-                textView.setBackgroundColor(Color.DKGRAY);
-            }
-        }
-    });
-
-    private SizeLayout sizeLayout4 = new SizeLayout(baseView4, 100f, 100f, 100f, 100f, Alignment.center, null, null, new BaseLayout.LayoutConfig() {
-        @Override
-        public void onConfigure(View view) {
-            if (view instanceof TextView) {
-                TextView textView = (TextView) view;
-                textView.setText("bla4");
-                textView.setBackgroundColor(Color.CYAN);
-            }
-        }
-    });
-
-    private StackLayout stackLayout2 = new StackLayout(Axis.VERTICAL, 0, null, null, null, Arrays.asList(sizeLayout3, sizeLayout4), null);
-
-    private StackLayout stackLayout = new StackLayout(Axis.HORIZONTAL, 0, null, null, null, Arrays.asList(sizeLayout, sizeLayout2, stackLayout2), null);
+    private StackLayout stackLayout = new StackLayout(
+            Axis.HORIZONTAL, 0,
+            null, null, null,
+            Arrays.asList(sizeLayout, sizeLayout2, stackLayout2),
+            null);
 
     public CustomView(Context context) {
         super(context);
-        init();
-    }
-
-    public CustomView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    private void init() {
     }
 
     @Override
