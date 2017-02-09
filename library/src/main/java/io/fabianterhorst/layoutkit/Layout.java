@@ -18,7 +18,11 @@ public abstract class Layout {
 
     public abstract Flexibility getFlexibility();//Todo: remove unused
 
-    public final LayoutArrangement arrangement(Point origin, Float width, Float height) { //Todo: remove the final
+    public LayoutArrangement arrangement() {
+        return arrangement(null, null, null);
+    }
+
+    public /*Todo: what was the reason for this final*/ LayoutArrangement arrangement(Point origin, Float width, Float height) { //Todo: remove the final
         if (origin == null) {
             origin = new Point(0, 0);
         }
