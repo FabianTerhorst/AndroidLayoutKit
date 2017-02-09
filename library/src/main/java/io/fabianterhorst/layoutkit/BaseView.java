@@ -2,6 +2,7 @@ package io.fabianterhorst.layoutkit;
 
 import android.graphics.Canvas;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +29,19 @@ public class BaseView {
 
     public BaseView(View view, Rect frame) {
         this.view = view;
+        if (view != null) {
+            view.setLayoutParams(new ViewGroup.LayoutParams(0, 0));//Todo: test
+        }
         setFrame(frame);
     }
 
     public void draw(Canvas canvas) {
         if (view != null) {
-            canvas.save();
-            canvas.translate(frame.getOrigin().getX(), frame.getOrigin().getY());
+            startDraw(canvas);
             view.draw(canvas);
-            canvas.restore();
+            endDraw(canvas);
+        } else {
+            onDraw(canvas);
         }
         if (subViews == null) return;
         for (BaseView view : subViews) {
@@ -44,10 +49,35 @@ public class BaseView {
         }
     }
 
+    void startDraw(Canvas canvas) {
+        canvas.save();
+        canvas.translate(frame.getOrigin().getX(), frame.getOrigin().getY());
+    }
+
+    void endDraw(Canvas canvas) {
+        canvas.restore();
+    }
+
+    private void onDraw(Canvas canvas) {
+
+    }
+
+    public void measure(float width, float height) {
+        if (view != null) {
+            view.layout(0, 0, (int) width, (int) height);
+        } else {
+            onMeasure(width, height);
+        }
+    }
+
+    private void onMeasure(float width, float height) {
+
+    }
+
     public void setFrame(Rect frame) {
         this.frame = frame;
-        if (view != null && frame != null) {
-            view.layout(0, 0, (int) frame.getWidth(), (int) frame.getHeight());
+        if (frame != null) {
+            measure(frame.getWidth(), frame.getHeight());
         }
     }
 
