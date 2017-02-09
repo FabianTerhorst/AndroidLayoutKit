@@ -31,13 +31,13 @@ public class Size {
         return height;
     }
 
-    /*public Size decreasedByInsets(_ insets: EdgeInsets) {
-        return CGSize(width: width - insets.left - insets.right, height: height - insets.top - insets.bottom)
+    public Size decreasedByInsets(EdgeInsets insets) {
+        return new Size(width - insets.getLeft() - insets.getRight(), height - insets.getTop() - insets.getBottom());
     }
 
-    public Size increasedByInsets(_ insets: EdgeInsets) {
-        return CGSize(width: width + insets.left + insets.right, height: height + insets.top + insets.bottom)
-    }*/
+    public Size increasedByInsets(EdgeInsets insets) {
+        return new Size(width + insets.getLeft() + insets.getRight(), height + insets.getTop() + insets.getBottom());
+    }
 
     public Size decreasedToSize(Size maxSize) {
         float width = Math.min(this.width, maxSize.width);
