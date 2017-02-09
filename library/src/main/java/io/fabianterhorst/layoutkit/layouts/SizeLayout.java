@@ -99,10 +99,4 @@ public class SizeLayout extends BaseLayout {
         }
         return new LayoutArrangement(this, frame, subLayouts);
     }
-
-    //Todo: implement
-    @Override
-    public void configure(BaseView baseTypeView) {
-
-    }
 }

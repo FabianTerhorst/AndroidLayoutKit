@@ -7,7 +7,6 @@ import java.util.List;
 
 import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.Axis;
-import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.Flexibility;
 import io.fabianterhorst.layoutkit.Layout;
 import io.fabianterhorst.layoutkit.LayoutArrangement;
@@ -190,7 +189,8 @@ public class StackLayout extends BaseLayout {
             return totalAvailableSpace;
         }
         if (spacing == 0) {
-            return totalAvailableSpace / sublayoutCount;//Todo: maybe float is needed for division?
+            //FIXME: for 3 layouts there is not enough space in an float to get 99% precision maybe add to the last layout 0,0001
+            return (totalAvailableSpace / (float) sublayoutCount);//Todo: maybe float is needed for division?
         }
         // Note: we don't actually need to check for zero spacing above, because division by zero produces a valid result for floating point values.
         // We check anyway for the sake of clarity.
@@ -298,10 +298,5 @@ public class StackLayout extends BaseLayout {
             return new AxisFlexibility(axis, axisFlex, crossFlex);
         }.flexibility;*/
         return initial.getFlexibility();
-    }
-
-    @Override
-    public void configure(BaseView baseTypeView) {
-
     }
 }
