@@ -23,7 +23,7 @@ import io.fabianterhorst.layoutkit.layouts.StackLayout;
 
 public class CustomView extends View {
 
-    private InsetLayout sizeLayout = new InsetLayout(
+    private InsetLayout insetLayout = new InsetLayout(
             new EdgeInsets(10, 10, 10, 10), null,
             new SizeLayout(
                     new BaseView(new TextView(getContext())),
@@ -94,7 +94,7 @@ public class CustomView extends View {
     private StackLayout stackLayout = new StackLayout(
             Axis.HORIZONTAL, 0,
             null, null, null,
-            Arrays.asList(sizeLayout, sizeLayout2, stackLayout2),
+            Arrays.asList(insetLayout, sizeLayout2, stackLayout2),
             null);
 
     public CustomView(Context context) {
