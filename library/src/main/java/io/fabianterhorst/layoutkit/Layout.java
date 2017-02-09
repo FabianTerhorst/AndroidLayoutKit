@@ -16,7 +16,7 @@ public abstract class Layout {
 
     public abstract void configure(BaseView baseTypeView);
 
-    public abstract Flexibility getFlexibility();//Todo: remove unused
+    public abstract Flexibility getFlexibility();
 
     public LayoutArrangement arrangement() {
         return arrangement(null, null, null);
