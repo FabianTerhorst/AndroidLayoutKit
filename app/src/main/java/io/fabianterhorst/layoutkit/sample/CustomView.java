@@ -1,19 +1,24 @@
 package io.fabianterhorst.layoutkit.sample;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.text.TextPaint;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
 import io.fabianterhorst.layoutkit.Axis;
-import io.fabianterhorst.layoutkit.BaseView;
 import io.fabianterhorst.layoutkit.EdgeInsets;
+import io.fabianterhorst.layoutkit.android.AndroidBaseView;
 import io.fabianterhorst.layoutkit.layouts.BaseLayout;
 import io.fabianterhorst.layoutkit.layouts.InsetLayout;
+import io.fabianterhorst.layoutkit.layouts.LabelLayout;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 import io.fabianterhorst.layoutkit.layouts.StackLayout;
 
@@ -26,7 +31,7 @@ public class CustomView extends View {
     private InsetLayout insetLayout = new InsetLayout(
             new EdgeInsets(10, 10, 10, 10), null,
             new SizeLayout(
-                    new BaseView(new TextView(getContext())),
+                    new AndroidBaseView(new TextView(getContext())),
                     100f, 100f, 100f, 100f,
                     null, null, null,
                     new BaseLayout.LayoutConfig() {
@@ -55,7 +60,7 @@ public class CustomView extends View {
             });
 
     private SizeLayout sizeLayout2 = new SizeLayout(
-            new BaseView(new TextView(getContext())),
+            new AndroidBaseView(new TextView(getContext())),
             100f, 100f, 100f, 100f,
             null, null, null,
             new BaseLayout.LayoutConfig() {
@@ -70,7 +75,7 @@ public class CustomView extends View {
             });
 
     private SizeLayout sizeLayout3 = new SizeLayout(
-            new BaseView(new TextView(getContext())),
+            new AndroidBaseView(new TextView(getContext())),
             100f, 100f, 100f, 100f,
             null, null, null,
             new BaseLayout.LayoutConfig() {
@@ -84,7 +89,18 @@ public class CustomView extends View {
                 }
             });
 
-    private SizeLayout sizeLayout4 = new SizeLayout(
+    public static float convertSpToPixel(float sp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, metrics);
+    }
+
+    private TextPaint paint = new TextPaint() {{
+        setColor(Color.CYAN);
+        setTextSize(50/*convertSpToPixel(10, getContext())*/);//Todo: google
+    }};
+
+    private LabelLayout sizeLayout4 = new LabelLayout(getContext(), "bla4", paint, 1, null, null, null);/*new SizeLayout(
             new BaseView(new TextView(getContext())),
             100f, 100f, 100f, 100f,
             null, null, null,
@@ -97,7 +113,7 @@ public class CustomView extends View {
                         textView.setBackgroundColor(Color.CYAN);
                     }
                 }
-            });
+            });*/
 
     private StackLayout stackLayout2 = new StackLayout(
             Axis.VERTICAL, 0,

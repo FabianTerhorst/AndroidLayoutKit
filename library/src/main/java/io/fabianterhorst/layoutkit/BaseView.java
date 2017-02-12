@@ -1,8 +1,6 @@
 package io.fabianterhorst.layoutkit;
 
 import android.graphics.Canvas;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,40 +11,20 @@ import java.util.List;
 
 public class BaseView {
 
-    private View view;
-
     private Rect frame;
 
     private List<BaseView> subViews;
 
     public BaseView() {
-        this(null, null);
+        this(null);
     }
 
-    public BaseView(Rect rect) {
-        this(null, rect);
-    }
-
-    public BaseView(View view) {
-        this(view, null);
-    }
-
-    public BaseView(View view, Rect frame) {
-        this.view = view;
-        if (view != null) {
-            view.setLayoutParams(new ViewGroup.LayoutParams(0, 0));//Todo: test
-        }
+    public BaseView(Rect frame) {
         setFrame(frame);
     }
 
     public void draw(Canvas canvas) {
-        if (view != null) {
-            startDraw(canvas);
-            view.draw(canvas);
-            stopDraw(canvas);
-        } else {
-            onDraw(canvas);
-        }
+        onDraw(canvas);
         if (subViews == null) return;
         for (BaseView view : subViews) {
             view.draw(canvas);
@@ -63,34 +41,20 @@ public class BaseView {
     }
 
     protected void onDraw(Canvas canvas) {
-
-    }
-
-    public void measure(float width, float height) {
-        if (view != null) {
-            view.layout(0, 0, (int) width, (int) height);
-        } else {
-            onMeasure(width, height);
-        }
     }
 
     protected void onMeasure(float width, float height) {
-
     }
 
     public void setFrame(Rect frame) {
         this.frame = frame;
         if (frame != null) {
-            measure(frame.getWidth(), frame.getHeight());
+            onMeasure(frame.getWidth(), frame.getHeight());
         }
     }
 
     public Rect getFrame() {
         return frame;
-    }
-
-    public View getView() {
-        return view;
     }
 
     public void addSubView(BaseView view) {
