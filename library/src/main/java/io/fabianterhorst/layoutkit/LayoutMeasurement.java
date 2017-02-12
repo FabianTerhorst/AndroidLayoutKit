@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 /**
- * The size of a layout and the sizes of its sublayouts.
+ * The size of a layout and the sizes of its subLayouts.
  */
 public class LayoutMeasurement {
 
