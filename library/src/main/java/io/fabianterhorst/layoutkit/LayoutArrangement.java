@@ -53,8 +53,10 @@ public class LayoutArrangement {
 
     private List<BaseView> makeSubViews() {
         List<BaseView> subViews = new ArrayList<>();
-        for (LayoutArrangement subLayout : this.subLayouts) {
-            subViews.addAll(subLayout.makeSubViews());
+        if (subLayouts != null) {
+            for (LayoutArrangement subLayout : this.subLayouts) {
+                subViews.addAll(subLayout.makeSubViews());
+            }
         }
         if (layout.needsView()) {
             BaseView view = layout.makeView();
