@@ -1,29 +1,20 @@
 package io.fabianterhorst.layoutkit.utils;
 
-import io.fabianterhorst.layoutkit.Alignment;
 import io.fabianterhorst.layoutkit.BaseView;
-import io.fabianterhorst.layoutkit.Flexibility;
 import io.fabianterhorst.layoutkit.Layout;
-import io.fabianterhorst.layoutkit.layouts.BaseLayout;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 
 /**
  * Created by fabianterhorst on 12.02.17.
  */
 
-public class SizeLayoutBuilder {
+public class SizeLayoutBuilder extends ChildLayoutBuilder<SizeLayoutBuilder> {
 
     private BaseView baseView;
 
     private Float minWidth, maxWidth, minHeight, maxHeight;
 
-    private Alignment alignment;
-
-    private Flexibility flexibility;
-
     private Layout subLayout;
-
-    private BaseLayout.LayoutConfig layoutConfig;
 
     public SizeLayoutBuilder() {
     }
@@ -71,23 +62,8 @@ public class SizeLayoutBuilder {
         return this;
     }
 
-    public SizeLayoutBuilder alignment(Alignment alignment) {
-        this.alignment = alignment;
-        return this;
-    }
-
-    public SizeLayoutBuilder flexibility(Flexibility flexibility) {
-        this.flexibility = flexibility;
-        return this;
-    }
-
     public SizeLayoutBuilder subLayout(Layout subLayout) {
         this.subLayout = subLayout;
-        return this;
-    }
-
-    public SizeLayoutBuilder layoutConfig(BaseLayout.LayoutConfig layoutConfig) {
-        this.layoutConfig = layoutConfig;
         return this;
     }
 
