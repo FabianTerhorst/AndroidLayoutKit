@@ -283,12 +283,12 @@ public class StackLayout extends BaseLayout {
         return (leftFlex == null ? Integer.MIN_VALUE : leftFlex) < (rightFlex == null ? Integer.MIN_VALUE : rightFlex);
     }*/
 
-    private static Flexibility defaultFlexibility(Axis axis, List<? extends Layout> sublayouts) {
+    private static Flexibility defaultFlexibility(Axis axis, List<? extends Layout> subLayouts) {
         AxisFlexibility initial = new AxisFlexibility(axis, null, Integer.MAX_VALUE);
-        for (Layout sublayout : sublayouts) {
-            AxisFlexibility subflex = new AxisFlexibility(axis, sublayout.getFlexibility());
-            Integer axisFlex = Flexibility.max(initial.getAxisFlex(), subflex.getAxisFlex());
-            Integer crossFlex = Flexibility.min(initial.getCrossFlex(), subflex.getCrossFlex());
+        for (Layout subLayout : subLayouts) {
+            AxisFlexibility subFlex = new AxisFlexibility(axis, subLayout.getFlexibility());
+            Integer axisFlex = Flexibility.max(initial.getAxisFlex(), subFlex.getAxisFlex());
+            Integer crossFlex = Flexibility.min(initial.getCrossFlex(), subFlex.getCrossFlex());
             initial = new AxisFlexibility(axis, axisFlex, crossFlex);
         }
         /*return sublayouts.reduce(initial) { (flexibility:AxisFlexibility, sublayout: Layout) -> AxisFlexibility in
