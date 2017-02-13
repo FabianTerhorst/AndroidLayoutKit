@@ -18,23 +18,24 @@ import io.fabianterhorst.layoutkit.EdgeInsets;
 import io.fabianterhorst.layoutkit.android.AndroidBaseView;
 import io.fabianterhorst.layoutkit.layouts.BaseLayout;
 import io.fabianterhorst.layoutkit.layouts.InsetLayout;
-import io.fabianterhorst.layoutkit.layouts.LabelLayout;
 import io.fabianterhorst.layoutkit.layouts.SizeLayout;
 import io.fabianterhorst.layoutkit.layouts.StackLayout;
+import io.fabianterhorst.layoutkit.utils.InsetLayoutBuilder;
+import io.fabianterhorst.layoutkit.utils.SizeLayoutBuilder;
+import io.fabianterhorst.layoutkit.utils.StackLayoutBuilder;
 
 /**
  * Created by fabianterhorst on 03.02.17.
  */
-
+//Todo: docu that unsetted width or height is fill
 public class CustomView extends View {
 
-    private InsetLayout insetLayout = new InsetLayout(
-            new EdgeInsets(10, 10, 10, 10), null,
-            new SizeLayout(
-                    new AndroidBaseView(new TextView(getContext())),
-                    100f, 100f, 100f, 100f,
-                    null, null, null,
-                    new BaseLayout.LayoutConfig() {
+    private InsetLayout insetLayout = new InsetLayoutBuilder()
+            .insets(new EdgeInsets(10, 10, 10, 10))
+            .subLayout(new SizeLayoutBuilder()
+                    .baseView(new AndroidBaseView(new TextView(getContext())))
+                    .size(100f, 100f)
+                    .layoutConfig(new BaseLayout.LayoutConfig() {
                         @Override
                         public void onConfigure(Object view) {
                             if (view instanceof TextView) {
@@ -43,13 +44,12 @@ public class CustomView extends View {
                                 textView.setBackgroundColor(Color.GRAY);
                             }
                         }
-                    }), null);
+                    }).build()).build();
 
-    private SizeLayout sizeLayoutCustom = new SizeLayout(
-            new CustomBaseView(),
-            100f, 100f, 100f, 100f,
-            null, null, null,
-            new BaseLayout.LayoutConfig() {
+    private SizeLayout sizeLayoutCustom = new SizeLayoutBuilder()
+            .baseView(new CustomBaseView())
+            .size(100f, 100f)
+            .layoutConfig(new BaseLayout.LayoutConfig() {
                 @Override
                 public void onConfigure(Object view) {
                     if (view instanceof CustomBaseView) {
@@ -57,13 +57,12 @@ public class CustomView extends View {
                         customBaseView.setColor(Color.LTGRAY);
                     }
                 }
-            });
+            }).build();
 
-    private SizeLayout sizeLayout2 = new SizeLayout(
-            new AndroidBaseView(new TextView(getContext())),
-            100f, 100f, 100f, 100f,
-            null, null, null,
-            new BaseLayout.LayoutConfig() {
+    private SizeLayout sizeLayout2 = new SizeLayoutBuilder()
+            .baseView(new AndroidBaseView(new TextView(getContext())))
+            .size(100f, 100f)
+            .layoutConfig(new BaseLayout.LayoutConfig() {
                 @Override
                 public void onConfigure(Object view) {
                     if (view instanceof TextView) {
@@ -72,13 +71,12 @@ public class CustomView extends View {
                         textView.setBackgroundColor(Color.BLUE);
                     }
                 }
-            });
+            }).build();
 
-    private SizeLayout sizeLayout3 = new SizeLayout(
-            new AndroidBaseView(new TextView(getContext())),
-            100f, 100f, 100f, 100f,
-            null, null, null,
-            new BaseLayout.LayoutConfig() {
+    private SizeLayout sizeLayout3 = new SizeLayoutBuilder()
+            .baseView(new AndroidBaseView(new TextView(getContext())))
+            .size(100f, 100f)
+            .layoutConfig(new BaseLayout.LayoutConfig() {
                 @Override
                 public void onConfigure(Object view) {
                     if (view instanceof TextView) {
@@ -87,7 +85,7 @@ public class CustomView extends View {
                         textView.setBackgroundColor(Color.DKGRAY);
                     }
                 }
-            });
+            }).build();
 
     public static float convertSpToPixel(float sp, Context context) {
         Resources resources = context.getResources();
@@ -100,8 +98,8 @@ public class CustomView extends View {
         setTextSize(50/*convertSpToPixel(10, getContext())*/);//Todo: google
     }};
 
-    private LabelLayout sizeLayout4 = new LabelLayout(getContext(), "bla4", paint, 1, null, null, null);/*new SizeLayout(
-            new BaseView(new TextView(getContext())),
+    private SizeLayout sizeLayout4 = /*new LabelLayout(getContext(), "bla4", paint, 1, null, null, null);*/new SizeLayout(
+            new AndroidBaseView(new TextView(getContext())),
             100f, 100f, 100f, 100f,
             null, null, null,
             new BaseLayout.LayoutConfig() {
@@ -113,19 +111,19 @@ public class CustomView extends View {
                         textView.setBackgroundColor(Color.CYAN);
                     }
                 }
-            });*/
+            });
 
-    private StackLayout stackLayout2 = new StackLayout(
-            Axis.VERTICAL, 0,
-            null, null, null,
-            Arrays.asList(sizeLayout3, sizeLayout4),
-            null);
+    private StackLayout stackLayout2 = new StackLayoutBuilder()
+            .axis(Axis.VERTICAL)
+            .spacing(0)
+            .subLayouts(Arrays.asList(sizeLayout3, sizeLayout4))
+            .build();
 
-    private StackLayout stackLayout = new StackLayout(
-            Axis.HORIZONTAL, 0,
-            null, null, null,
-            Arrays.asList(insetLayout, sizeLayoutCustom, sizeLayout2, stackLayout2),
-            null);
+    private StackLayout stackLayout = new StackLayoutBuilder()
+            .axis(Axis.HORIZONTAL)
+            .spacing(0)
+            .subLayouts(Arrays.asList(insetLayout, sizeLayoutCustom, sizeLayout2, stackLayout2))
+            .build();
 
     public CustomView(Context context) {
         super(context);
