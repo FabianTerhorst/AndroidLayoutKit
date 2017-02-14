@@ -2,6 +2,7 @@ package io.fabianterhorst.layoutkit.sample;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 
 import io.fabianterhorst.layoutkit.BaseView;
 
@@ -22,6 +23,10 @@ public class CustomBaseView extends BaseView {
         startDraw(canvas);
         canvas.drawCircle(30, 30, 30, paint);
         stopDraw(canvas);
+    }
+
+    @Override
+    protected void onTouchEvent(float x, float y, MotionEvent event) {
     }
 
     @Override

@@ -17,7 +17,11 @@ add_library( # Sets the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/native-lib.cpp )
+             src/main/cpp/native-lib.cpp
+             src/main/cpp/Size.cpp
+             src/main/cpp/EdgeInsets.cpp
+             src/main/cpp/Point.cpp
+             src/main/cpp/Rect.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

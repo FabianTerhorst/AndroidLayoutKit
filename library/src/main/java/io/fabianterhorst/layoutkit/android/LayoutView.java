@@ -2,6 +2,7 @@ package io.fabianterhorst.layoutkit.android;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.View;
 
 import io.fabianterhorst.layoutkit.BaseView;
@@ -32,6 +33,14 @@ public class LayoutView extends View {
         if (baseView != null) {
             baseView.draw(canvas);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (baseView != null) {
+            baseView.dispatchTouchEvent(event);
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override

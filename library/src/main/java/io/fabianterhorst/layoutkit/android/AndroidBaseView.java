@@ -1,6 +1,7 @@
 package io.fabianterhorst.layoutkit.android;
 
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,6 +35,11 @@ public class AndroidBaseView extends BaseView {
             view.draw(canvas);
             stopDraw(canvas);
         }
+    }
+
+    @Override
+    protected void onTouchEvent(float x, float y, MotionEvent event) {
+        getView().callOnClick();
     }
 
     @Override
